@@ -1,8 +1,11 @@
 'use client';
+import { Box, Container, Typography, Paper,Button } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+
 import React, { useState, useEffect } from 'react';
 import {
   collection,
-  addDoc,
+  addDoc, 
   query,
   onSnapshot,
   deleteDoc,
@@ -11,6 +14,8 @@ import {
 import { db } from './firebase'; // Ensure correct import
 
 export default function Home() {
+  const serviceList=["Service 1","Service 2", "Service 3"]
+
   const [items, setItems] = useState([]);
 
   const [newItem, setNewItem] = useState({ name: '', price: '' });
@@ -56,6 +61,7 @@ export default function Home() {
   };
 
   return (
+    <Container sx={{bgcolor:'white', height:'100vh'}}>
     <main className='flex min-h-screen flex-col items-center justify-between sm:p-24 p-4'>
       <div className='z-10 w-full max-w-5xl items-center justify-between font-mono text-sm '>
         <h1 className='text-4xl p-4 text-center'>Pantry Tracker</h1>
@@ -114,6 +120,33 @@ export default function Home() {
           )}
         </div>
       </div>
+      <Typography variant='h2'>Services</Typography>
+      <Box sx={{
+        pt:4,
+        display:"flex", 
+        flexDirection:{xs:"column", md:"row"},
+        justifyContent:"space-between",
+        gap:4,}}>
+      {serviceList.map((service)=>(
+        <Paper elevation={3} sx={{width:{xs:1, md:320}}}>
+          <Box sx={{m:3}}>
+          <Typography variant='h3'>{service}</Typography>
+          <Typography sx={{mt:2}}>
+                Lorem ipsum dolor sit amet, 
+                consectetur adipiscing elit, sed do eiusmod 
+                tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor 
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, 
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </Typography>
+          <Button variant="outlined" color="primary" sx={{mt:2}} >Learn More </Button>
+          </Box>
+        </Paper>
+      ))}
+        </Box>
     </main>
+    </Container>
   );
 }
